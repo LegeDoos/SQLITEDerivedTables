@@ -26,6 +26,7 @@ using (var conn = new SQLiteConnection("database.sqlite"))
     conn.Insert(new Fish() { Name = "Fish 2", FlippersCount = 7 });
     conn.Insert(new Fish() { Name = "Fish 3", FlippersCount = 8 });
 
+    // kijk of animal bestaat
     try
     {
         foreach (var item in conn.Table<Animal>().ToList())
@@ -39,7 +40,15 @@ using (var conn = new SQLiteConnection("database.sqlite"))
         Console.WriteLine("Tabel animal bestaat niet dus het worden echt aparte tabellen!");
     }
 
+    // try animal
+    conn.CreateTable<Animal>();
+    Animal a = new Fish() { Name = "Fish 4", FlippersCount = 6 };
+    conn.Insert(a);
 
+    foreach (var item in conn.Table<Animal>().ToList())
+    {
+        Console.WriteLine($"Animal Id = {item.Id}; Name = {item.Name}; ");
+    }
 
 }
 
